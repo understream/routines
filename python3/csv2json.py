@@ -3,6 +3,7 @@ import sys
 import json
 
 def csv2json( csv_path ):
+    line_spliter = ""
     yield "["
     with open(csv_path, "r", encoding='utf-8') as f:
         columns = f.readline().strip().split(",")
@@ -18,7 +19,8 @@ def csv2json( csv_path ):
                     tmp[ columns[i] ] = None 
                 elif i < len(ll):
                     tmp[ "$key_%d"%(i+1) ] = ll[i]
-            yield json.dumps( tmp ) + ","
+            yield line_spliter + json.dumps( tmp ) 
+            line_spliter = ","
 
     yield "]"
 
